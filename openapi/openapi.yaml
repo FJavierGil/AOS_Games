@@ -1,0 +1,76 @@
+openapi: 3.0.2
+
+info:
+  title: '[AOS] Especificación API REST de VideoJuegos'
+  description: '*Gestión de videojuegos*'
+  version: 1.0.0
+
+servers:
+  - url: https://api.example.io/api/v1
+
+tags:
+  - name: Game
+    description: Game
+
+paths:
+  /games/{gameId}:
+    summary: Obtiene un videojuego identificado por su `id`
+    get:
+      description: Obtiene un videojuego identificado por su `gameId`
+      tags: [ Game ]
+      operationId: games_get
+      parameters:
+        - $ref: '#/components/parameters/gameId'
+      responses:
+        200:
+          description: Videojuego
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+
+components:
+  schemas:
+    Game:
+      description: Información de un videojuego
+      required:
+        - nombre
+        - empresa
+        - version
+        - año_publicación
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: Id videojuego
+          readOnly: true
+        nombre:
+          description: Nombre del videojuego
+          type: string
+        multijugador:
+          description: Indica si es un juego multijugador
+          type: boolean
+        empresa:
+          description: Nombre de la empresa desarrolladora
+          type: string
+        version:
+          description: Número de versión
+          type: string
+        año_publicación:
+          description: Año de publicación
+          type: integer
+
+  headers: {}
+
+  responses: {}
+
+  parameters:
+    gameId:
+      name: gameId
+      in: path
+      description: Identificador único del VideoJuego
+      schema:
+        type: integer
+        format: int32
+      required: true
