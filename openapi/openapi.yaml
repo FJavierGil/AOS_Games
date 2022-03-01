@@ -69,6 +69,20 @@ paths:
         404:
           $ref: '#/components/responses/Response_404'
 
+    options:
+      tags: [ Game ]
+      summary: Proporciona la lista de los métodos HTTP soportados por esta ruta.
+      description: Devuelve una cabecera `Allow` con la lista de métodos HTTP soportados (separados por comas).
+      operationId: games_options
+      parameters:
+        - $ref: '#/components/parameters/gameId'
+      responses:
+        204:
+          description: 'cabecera `Allow` &lt;El cuerpo de la respuesta está vacío&gt;'
+          headers:
+            Allow:
+              $ref: '#/components/headers/Allow'
+
 components:
   schemas:
     Game:
@@ -110,6 +124,7 @@ components:
           type: integer
         pegi:
           $ref: '#/components/schemas/Pegi'
+
     Pegi:
       description: >
         Clasificación PEGI (PanEuropean Game Information)
@@ -158,6 +173,11 @@ components:
         x-faker: random.uuid
         example:
           33a64df551425fcc
+    Allow:
+      description: Lista de métodos HTTP soportados
+      schema:
+        type: string
+      example: GET,DELETE,PUT,OPTIONS
 
   responses:
     Response_404:
@@ -185,7 +205,7 @@ components:
       value:
         id: 2022
         nombre: 'Need For Speed: Porsche 2000'
-        genero: Carreras
+        genero: [ Carreras ]
         multijugador: true
         requisitos:
         empresa: Electronic Arts
