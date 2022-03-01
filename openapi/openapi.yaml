@@ -22,8 +22,14 @@ tags:
 paths:
   /games/{gameId}:
     get:
-      summary: Obtiene un videojuego identificado por su `id`
-      description: Obtiene un videojuego identificado por su `gameId`
+      summary: Obtiene un videojuego identificado por su `gameId`
+      description: |        
+        La siguiente tabla define los códigos de estado que puede devolver este endpoint
+        
+        | Status Code      | Descripción | Motivo                             |
+        | ---------------- | ------------| -----------------------------------|
+        | **200**          | OK          | Si el juego existe                 |
+        | **404**          | NOT FOUND   | Si el juego no existe              |
       tags: [ Game ]
       operationId: games_get
       parameters:
