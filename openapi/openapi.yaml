@@ -38,6 +38,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Game'
+              examples:
+                gameExample:
+                  $ref: '#/components/examples/game-example'
         404:
           $ref: '#/components/responses/Response_404'
 
@@ -60,9 +63,17 @@ components:
         nombre:
           description: Nombre del videojuego
           type: string
+        genero:
+          description: Género del videojuego
+          type: array
+          items:
+            type: string
         multijugador:
           description: Indica si es un juego multijugador
           type: boolean
+        requisitos:
+          description: Requisitos técnicos
+          type: string
         empresa:
           description: Nombre de la empresa desarrolladora
           type: string
@@ -72,6 +83,20 @@ components:
         año_publicación:
           description: Año de publicación
           type: integer
+        pegi:
+          $ref: '#/components/schemas/Pegi'
+    Pegi:
+      description: >
+        Clasificación PEGI (PanEuropean Game Information)
+        [https://pegi.info/](https://pegi.info/)
+      enum:
+        - null
+        - PEGI-3
+        - PEGI-7
+        - PEGI-12
+        - PEGI-16
+        - PEGI-18
+
     HTTP_Problem:
       type: object
       externalDocs:
@@ -131,6 +156,18 @@ components:
       required: true
 
   examples:
+    game-example:
+      value:
+        id: 2022
+        nombre: 'Need For Speed: Porsche 2000'
+        genero: Carreras
+        multijugador: true
+        requisitos:
+        empresa: Electronic Arts
+        version: 2.0.1
+        año_publicación: 2000
+        pegi: PEGI-3
+
     response-http-404:
       value:
         type: https://httpstatuses.com/404
