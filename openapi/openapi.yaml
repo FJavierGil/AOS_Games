@@ -35,7 +35,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/gameId'
       responses:
-        200:
+        '200':
           description: Videojuego
           headers:
             ETag:
@@ -47,7 +47,7 @@ paths:
               examples:
                 gameExample:
                   $ref: '#/components/examples/game-example'
-        404:
+        '404':
           $ref: '#/components/responses/Response_404'
 
     delete:
@@ -64,9 +64,9 @@ paths:
       parameters:
         - $ref: '#/components/parameters/gameId'
       responses:
-        204:
+        '204':
           description: Videojuego eliminado &lt;Cuerpo de la respuesta vacío&gt;
-        404:
+        '404':
           $ref: '#/components/responses/Response_404'
 
     options:
@@ -77,7 +77,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/gameId'
       responses:
-        204:
+        '204':
           description: 'cabecera `Allow` &lt;El cuerpo de la respuesta está vacío&gt;'
           headers:
             Allow:
@@ -207,7 +207,7 @@ components:
         nombre: 'Need For Speed: Porsche 2000'
         genero: [ Carreras ]
         multijugador: true
-        requisitos:
+        requisitos: Windows7+
         empresa: Electronic Arts
         version: 2.0.1
         año_publicación: 2000
