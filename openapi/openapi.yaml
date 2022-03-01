@@ -21,8 +21,8 @@ tags:
 
 paths:
   /games/{gameId}:
-    summary: Obtiene un videojuego identificado por su `id`
     get:
+      summary: Obtiene un videojuego identificado por su `id`
       description: Obtiene un videojuego identificado por su `gameId`
       tags: [ Game ]
       operationId: games_get
@@ -31,6 +31,9 @@ paths:
       responses:
         200:
           description: Videojuego
+          headers:
+            ETag:
+              $ref: '#/components/headers/ETag'
           content:
             application/json:
               schema:
@@ -68,7 +71,16 @@ components:
           description: Año de publicación
           type: integer
 
-  headers: {}
+  headers:
+    ETag:
+      description: Entity Tag (identificador único proporcionado para validación de caché)
+      schema:
+        type: string
+        pattern: "[0-9a-f]*"
+        # https://github.com/marak/Faker.js#api-methods
+        x-faker: random.uuid
+        example:
+          33a64df551425fcc
 
   responses: {}
 
