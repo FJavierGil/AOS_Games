@@ -50,6 +50,25 @@ paths:
         404:
           $ref: '#/components/responses/Response_404'
 
+    delete:
+      summary: Elimina un videojuego identificado por su `gameId`
+      description: |
+        La siguiente tabla define los códigos de estado que puede devolver este endpoint
+        
+        | Status Code      | Descripción | Motivo                                    |
+        | ---------------- | ------------| ------------------------------------------|
+        | **204**          | NO CONTENT  | El videojuego existía y ha sido eliminado |
+        | **404**          | NOT FOUND   | Si el videojuego no existe                |
+      tags: [ Game ]
+      operationId: games_delete
+      parameters:
+        - $ref: '#/components/parameters/gameId'
+      responses:
+        204:
+          description: Videojuego eliminado &lt;Cuerpo de la respuesta vacío&gt;
+        404:
+          $ref: '#/components/responses/Response_404'
+
 components:
   schemas:
     Game:
