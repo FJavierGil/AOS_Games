@@ -4,6 +4,13 @@ info:
   title: '[AOS] Especificación API REST de VideoJuegos'
   description: '*Gestión de videojuegos*'
   version: 1.0.0
+  license:
+    name: MIT
+    url: 'https://opensource.org/licenses/MIT'
+  contact:
+    name: Máster Universitario en Ingeniería Web
+    url: 'http://miw.etsisi.upm.es/'
+    email: miw.etsisi@upm.es
 
 servers:
   - url: https://api.example.io/api/v1
