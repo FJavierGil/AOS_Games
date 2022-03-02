@@ -21,6 +21,36 @@ tags:
 
 paths:
   /games:
+    get:
+      summary: Obtiene todos los videojuegos
+      description: |
+        La siguiente tabla define los códigos de estado que puede devolver este endpoint
+        
+        | Status Code | Descripción | Motivo                             |
+        | ------------| ------------| -----------------------------------|
+        | **200**     | OK          | Hay videojuegos                    |
+        | **404**     | NOT FOUND   | No hay ningún videojuego           |
+      tags: [ Game ]
+      operationId: games_cget
+      responses:
+        '200':
+          description: Lista de videojuegos disponibles
+          headers:
+            ETag:
+              $ref: '#/components/headers/ETag'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  videojuegos:
+                    description: array de videojuegos
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Game'
+        '404':
+          $ref: '#/components/responses/Response_404'
+
     options:
       tags: [ Game ]
       summary: Proporciona la lista de los métodos HTTP soportados por esta ruta.
