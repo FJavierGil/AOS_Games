@@ -151,6 +151,35 @@ paths:
             Allow:
               $ref: '#/components/headers/Allow'
 
+    put:
+      tags: [ Game ]
+      summary: Modifica un videojuego.
+      description:  |
+        La siguiente tabla define los códigos de estado que puede devolver este endpoint
+
+        | Status Code | Descripción         | Motivo                                        |
+        | ------------| --------------------| ----------------------------------------------|
+        | **200**     | OK                  | El videojuego existía y ha sido modificado    |
+        | **404**     | NOT FOUND           | Si el videojuego no existe                    |
+        | **412**     | PRECONDITION FAILED | Si el ETag proporcionado no está actualizado  |
+      operationId: games_put
+      parameters:
+        # https://www.rfc-editor.org/rfc/rfc7232.html#page-13
+        - $ref: '#/components/parameters/ifMatchParam'
+      requestBody:
+        $ref: '#/components/requestBodies/gameUpdate'
+      responses:
+        '200':
+          description: '`OK`: el videojuego ha sido modificado'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+        '404':
+          $ref: '#/components/responses/Response_404'
+        '412':
+          $ref: '#/components/responses/Response_412'
+
 components:
   schemas:
     Game:
@@ -270,6 +299,41 @@ components:
           examples:
             gameRB-example:
               $ref: '#/components/examples/gameRB-example'
+    gameUpdate:
+      description: Información de actualización de un videojuego
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              nombre:
+                description: Nombre del videojuego
+                type: string
+              genero:
+                description: Género del videojuego
+                type: array
+                items:
+                  type: string
+              multijugador:
+                description: Indica si es un juego multijugador
+                type: boolean
+              requisitos:
+                description: Requisitos técnicos
+                type: string
+              empresa:
+                description: Nombre de la empresa desarrolladora
+                type: string
+              version:
+                description: Número de versión
+                type: string
+              año_publicación:
+                description: Año de publicación
+                type: integer
+              pegi:
+                $ref: '#/components/schemas/Pegi'
+          examples:
+            gameUpdate-example:
+              $ref: '#/components/examples/gameRB-example'
 
   headers:
     ETag:
@@ -305,6 +369,15 @@ components:
           examples:
             response-http-404:
               $ref: '#/components/examples/response-http-404'
+    Response_412:
+      description: '`PRECONDITION FAILED`: El ETag proporcionado no está actualizado'
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/HTTP_Problem'
+          examples:
+            response-http-412:
+              $ref: '#/components/examples/response-http-412'
     Response_422:
       description: >
         `UNPROCESSABLE ENTITY`
@@ -326,6 +399,14 @@ components:
         type: integer
         format: int32
       required: true
+    ifMatchParam:
+      name: If-Match
+      in: header
+      description: ETag del videojuego que se desea modificar
+      required: true
+      schema:
+        type: string
+        pattern: "[0-9a-f]*"
 
   examples:
     game-example:
@@ -356,6 +437,14 @@ components:
         title: NOT FOUND
         status: 404
         detail: El recurso solicitado no está disponible.
+        instance: about:blank
+
+    response-http-412:
+      value:
+        type: https://httpstatuses.com/412
+        title: PRECONDITION FAILED
+        status: 412
+        detail: El ETag proporcionado no está actualizado
         instance: about:blank
 
     response-http-422:
