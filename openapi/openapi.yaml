@@ -20,6 +20,19 @@ tags:
     description: Game
 
 paths:
+  /games:
+    options:
+      tags: [ Game ]
+      summary: Proporciona la lista de los métodos HTTP soportados por esta ruta.
+      description: Devuelve una cabecera `Allow` con la lista de métodos HTTP soportados (separados por comas).
+      operationId: games_coptions
+      responses:
+        '204':
+          description: 'cabecera `Allow` &lt;El cuerpo de la respuesta está vacío&gt;'
+          headers:
+            Allow:
+              $ref: '#/components/headers/Allow'
+
   /games/{gameId}:
     get:
       summary: Obtiene un videojuego identificado por su `gameId`
