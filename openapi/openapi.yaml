@@ -33,6 +33,35 @@ paths:
             Allow:
               $ref: '#/components/headers/Allow'
 
+    post:
+      summary: Añade un nuevo videojuego
+      description: |
+        La siguiente tabla define los códigos de estado que puede devolver este endpoint
+        
+        | Status Code | Descripción          | Motivo                                    |
+        | ------------| ---------------------| ------------------------------------------|
+        | **201**     | CREATED              | El videojuego ha sido creado              |
+        | **422**     | UNPROCESSABLE ENTITY | Falta alguno de los atributos obligatorios|
+      tags: [ Game ]
+      operationId: games_post
+      requestBody:
+        $ref: '#/components/requestBodies/gameRB'
+      responses:
+        '201':
+          description: Nuevo Videojuego creado
+          headers:
+            Location:
+              $ref: '#/components/headers/Location'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+              examples:
+                gameExample:
+                  $ref: '#/components/examples/game-example'
+        '422':
+          $ref: '#/components/responses/Response_422'
+
   /games/{gameId}:
     parameters:
       - $ref: '#/components/parameters/gameId'
@@ -172,6 +201,46 @@ components:
                 occurrence of the problem.  It may or may not yield further
                 information if dereferenced"
 
+  requestBodies:
+    gameRB:
+      description: Información de un videojuego
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [ nombre, empresa, version, año_publicación ]
+            properties:
+              nombre:
+                description: Nombre del videojuego
+                type: string
+              genero:
+                description: Género del videojuego
+                type: array
+                items:
+                  type: string
+              multijugador:
+                description: Indica si es un juego multijugador
+                type: boolean
+                default: true
+              requisitos:
+                description: Requisitos técnicos
+                type: string
+              empresa:
+                description: Nombre de la empresa desarrolladora
+                type: string
+              version:
+                description: Número de versión
+                type: string
+              año_publicación:
+                description: Año de publicación
+                type: integer
+              pegi:
+                $ref: '#/components/schemas/Pegi'
+          examples:
+            gameRB-example:
+              $ref: '#/components/examples/gameRB-example'
+
   headers:
     ETag:
       description: Entity Tag (identificador único proporcionado para validación de caché)
@@ -187,6 +256,14 @@ components:
       schema:
         type: string
       example: GET,DELETE,PUT,OPTIONS
+    Location:
+      description: '`URI` del nuevo recurso'
+      schema:
+        type: string
+        format: url
+        x-faker: internet.url
+        example:
+          /api/v1/games/1936
 
   responses:
     Response_404:
@@ -198,6 +275,17 @@ components:
           examples:
             response-http-404:
               $ref: '#/components/examples/response-http-404'
+    Response_422:
+      description: >
+        `UNPROCESSABLE ENTITY`
+        Falta alguno de los atributos obligatorios (`nombre`, `empresa`, `version` o `año_publicación`)
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/HTTP_Problem'
+          examples:
+            response-http-422:
+              $ref: '#/components/examples/response-http-422'
 
   parameters:
     gameId:
@@ -221,11 +309,29 @@ components:
         version: 2.0.1
         año_publicación: 2000
         pegi: PEGI-3
+    gameRB-example:
+      value:
+        nombre: 'Need for Speed™ Hot Pursuit Remastered'
+        genero: [ Carreras, 'No lineal', Racing ]
+        multijugador: true
+        requisitos: PS3, Xbox 360, Windows 10+
+        empresa: Electronic Arts
+        version: 3.5.0
+        año_publicación: 2020
+        pegi: PEGI-7
 
     response-http-404:
       value:
         type: https://httpstatuses.com/404
         title: NOT FOUND
         status: 404
-        detail: El recurso solicitado no está disponible...
+        detail: El recurso solicitado no está disponible.
+        instance: about:blank
+
+    response-http-422:
+      value:
+        type: https://httpstatuses.com/422
+        title: UNPROCESSABLE ENTITY
+        status: 422
+        detail: Falta alguno de los atributos obligatorios (nombre, empresa, version o año_publicación)
         instance: about:blank
