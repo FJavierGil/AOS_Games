@@ -221,6 +221,15 @@ components:
           type: integer
         pegi:
           $ref: '#/components/schemas/Pegi'
+        links:
+          description: Enlaces de relación
+          readOnly: true
+          type: object
+          properties:
+            parent:
+              $ref: '#/components/schemas/Link'
+            self:
+              $ref: '#/components/schemas/Link'
 
     Pegi:
       description: >
@@ -259,6 +268,21 @@ components:
           description: "A URI reference that identifies the specific
                 occurrence of the problem.  It may or may not yield further
                 information if dereferenced"
+
+    Link:
+      description: Enlace de relación
+      type: object
+      properties:
+        href:
+          description: URL del enlace
+          type: string
+          format: url
+          x-faker: internet.url
+        rel:
+          description: "Relación del documento enlazado con el actual. Contiene una lista de tipos
+                de enlaces separados por espacio."
+          type: string
+          x-faker: lorem.words
 
   requestBodies:
     gameRB:
@@ -420,6 +444,14 @@ components:
         version: 2.0.1
         año_publicación: 2000
         pegi: PEGI-3
+        links:
+          parent:
+            href: /api/v1/games
+            rel: listaVideojuegos
+          self:
+            href: /api/v1/games/2022
+            rel: obtenerVideojuego modificarVideojuego eliminarVideojuego
+
     gameRB-example:
       value:
         nombre: 'Need for Speed™ Hot Pursuit Remastered'
