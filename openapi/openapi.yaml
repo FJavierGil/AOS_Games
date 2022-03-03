@@ -16,7 +16,7 @@ servers:
   - url: https://api.example.io/api/v1
 
 tags:
-  - name: Game
+  - name: '🕹️ Game'
     description: Game
 
 paths:
@@ -30,7 +30,7 @@ paths:
         | ------------| ------------| -----------------------------------|
         | **200**     | OK          | Hay videojuegos                    |
         | **404**     | NOT FOUND   | No hay ningún videojuego           |
-      tags: [ Game ]
+      tags: [ '🕹️ Game' ]
       operationId: games_cget
       responses:
         '200':
@@ -52,7 +52,7 @@ paths:
           $ref: '#/components/responses/Response_404'
 
     options:
-      tags: [ Game ]
+      tags: [ '🕹️ Game' ]
       summary: Proporciona la lista de los métodos HTTP soportados por esta ruta.
       description: Devuelve una cabecera `Allow` con la lista de métodos HTTP soportados (separados por comas).
       operationId: games_coptions
@@ -72,7 +72,7 @@ paths:
         | ------------| ---------------------| ------------------------------------------|
         | **201**     | CREATED              | El videojuego ha sido creado              |
         | **422**     | UNPROCESSABLE ENTITY | Falta alguno de los atributos obligatorios|
-      tags: [ Game ]
+      tags: [ '🕹️ Game' ]
       operationId: games_post
       requestBody:
         $ref: '#/components/requestBodies/gameRB'
@@ -104,7 +104,7 @@ paths:
         | ---------------- | ------------| -----------------------------------|
         | **200**          | OK          | Si el juego existe                 |
         | **404**          | NOT FOUND   | Si el juego no existe              |
-      tags: [ Game ]
+      tags: [ '🕹️ Game' ]
       operationId: games_get
       responses:
         '200':
@@ -131,7 +131,7 @@ paths:
         | ---------------- | ------------| ------------------------------------------|
         | **204**          | NO CONTENT  | El videojuego existía y ha sido eliminado |
         | **404**          | NOT FOUND   | Si el videojuego no existe                |
-      tags: [ Game ]
+      tags: [ '🕹️ Game' ]
       operationId: games_delete
       responses:
         '204':
@@ -140,7 +140,7 @@ paths:
           $ref: '#/components/responses/Response_404'
 
     options:
-      tags: [ Game ]
+      tags: [ '🕹️ Game' ]
       summary: Proporciona la lista de los métodos HTTP soportados por esta ruta.
       description: Devuelve una cabecera `Allow` con la lista de métodos HTTP soportados (separados por comas).
       operationId: games_options
@@ -152,7 +152,7 @@ paths:
               $ref: '#/components/headers/Allow'
 
     put:
-      tags: [ Game ]
+      tags: [ '🕹️ Game' ]
       summary: Modifica un videojuego.
       description:  |
         La siguiente tabla define los códigos de estado que puede devolver este endpoint
@@ -184,6 +184,7 @@ components:
   schemas:
     Game:
       description: Información de un videojuego
+      title: '🕹️ Game'
       required:
         - nombre
         - empresa
@@ -271,6 +272,7 @@ components:
 
     Link:
       description: Enlace de relación
+      title: '🔗 Link'
       type: object
       properties:
         href:
