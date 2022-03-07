@@ -1,0 +1,110 @@
+###
+# CGET 200
+GET http://127.0.0.1:80/api/v1/game
+Accept: application/json
+
+###
+# GET ERROR 422 (validación parámetros)
+GET http://127.0.0.1:80/api/v1/game/abcd
+Accept: application/json
+
+###
+# GET 200
+GET http://127.0.0.1:80/api/v1/game/1234
+Accept: application/json
+
+###
+# POST 201
+POST http://127.0.0.1:80/api/v1/game
+Content-Type: application/json
+
+{
+  "nombre": "ETSISI game",
+  "empresa": "U.P.M.",
+  "version": "4.5.6",
+  "año_publicación": 2022
+}
+
+###
+# POST 201 (dinámico)
+POST http://127.0.0.1:80/api/v1/game
+Prefer: dynamic=true
+Content-Type: application/json
+
+{
+    "nombre": "ETSISI game",
+    "empresa": "U.P.M.",
+    "version": "4.5.6",
+    "año_publicación": 2022
+}
+
+###
+# PUT 200 (dinámico) - Falta cabecera If-Match
+PUT http://127.0.0.1:80/api/v1/game/1234
+Prefer: dynamic=true
+Content-Type: application/json
+
+{
+  "nombre": "ETSISI game"
+}
+
+###
+# PUT 200 (dinámico)
+PUT http://127.0.0.1:80/api/v1/game/1234
+If-Match: 12345
+Prefer: dynamic=true
+Content-Type: application/json
+
+{
+  "nombre": "ETSISI game"
+}
+
+###
+# CGET 404
+GET http://127.0.0.1:80/api/v1/game
+Prefer: code=404
+Accept: application/problem+json
+
+###
+# POST 422
+POST http://127.0.0.1:80/api/v1/game
+Prefer: code=422
+Content-Type: application/json
+
+{
+  "XXXnombre": "ETSISI game",
+  "empresa": "U.P.M.",
+  "version": "4.5.6",
+  "año_publicación": 2022
+}
+
+###
+# COPTIONS 204
+OPTIONS http://127.0.0.1:80/api/v1/game
+Content-Type: application/json
+
+###
+# OPTIONS 204
+OPTIONS http://127.0.0.1:80/api/v1/game/5
+Content-Type: application/json
+
+###
+# PUT 404 (dinámico) - Not Found
+PUT http://127.0.0.1:80/api/v1/game/1234
+If-Match: a1b2c3d4e5f6
+Prefer: code=404
+Content-Type: application/json
+
+{
+  "nombre": "ETSISI game"
+}
+
+###
+# PUT 422 (dinámico) - Falta cabecera If-Match
+PUT http://127.0.0.1:80/api/v1/game/1234
+Prefer: code=422
+Content-Type: application/json
+
+{
+  "nombre": "ETSISI game"
+}

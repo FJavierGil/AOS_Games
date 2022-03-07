@@ -1,0 +1,11 @@
+http://127.0.0.1
+
+route /api/v1/* {
+	uri strip_prefix /api/v1
+	reverse_proxy games_mock:4010
+}
+
+# Redirección a Swagger-UI de la "página principal"
+route / {
+    redir http://127.0.0.1:8000/
+}

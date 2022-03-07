@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+    backend:
+        image: stoplight/prism:4
+        container_name: games_mock
+        command: mock --cors -h 0.0.0.0 "/aos/openapi.yaml"
+        ports:
+          - "4010:4010"
+        volumes:
+            - ./openapi:/aos:ro
+
+    frontend:
+        image: swaggerapi/swagger-ui
+        container_name: games_ui
+        ports:
+            - "8000:8080"
+        environment:
+            SWAGGER_JSON: /aos/openapi.yaml
+        volumes:
+            - ./openapi:/aos:ro
+
+    proxy:
+        image: caddy
+        container_name: games_proxy
+        volumes:
+            - ./Caddyfile:/etc/caddy/Caddyfile
+        ports:
+            - "80:80"
+        depends_on:
+            - backend
