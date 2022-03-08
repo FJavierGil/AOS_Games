@@ -253,8 +253,8 @@ components:
         Clasificación PEGI (PanEuropean Game Information)
         [https://pegi.info/](https://pegi.info/)
       type: string
+      nullable: true
       enum:
-        - null
         - PEGI-3
         - PEGI-7
         - PEGI-12
