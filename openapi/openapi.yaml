@@ -32,6 +32,9 @@ paths:
         | **404**     | NOT FOUND   | No hay ningún videojuego           |
       tags: [ '🕹️ Game' ]
       operationId: games_cget
+      parameters:
+        - $ref: '#/components/parameters/orderParam'
+        - $ref: '#/components/parameters/orderingParam'
       responses:
         '200':
           description: Lista de videojuegos disponibles
@@ -43,7 +46,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  videojuegos:
+                  games:
                     description: array de videojuegos
                     type: array
                     items:
@@ -239,6 +242,7 @@ components:
       description: >
         Clasificación PEGI (PanEuropean Game Information)
         [https://pegi.info/](https://pegi.info/)
+      type: string
       enum:
         - null
         - PEGI-3
@@ -438,6 +442,28 @@ components:
       schema:
         type: string
         pattern: "[0-9a-f]*"
+    orderParam:
+      name: order
+      in: query
+      description: 'Criterio de ordenación: `id` | `nombre`'
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: string
+        enum:
+          - id
+          - nombre
+    orderingParam:
+      name: ordering
+      in: query
+      description: 'Ordenación: `ASC` | `DESC`'
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: string
+        enum:
+          - ASC
+          - DESC
 
   examples:
     game-example:
