@@ -33,6 +33,7 @@ paths:
       tags: [ '🕹️ Game' ]
       operationId: games_cget
       parameters:
+        - $ref: '#/components/parameters/pageParam'
         - $ref: '#/components/parameters/orderParam'
         - $ref: '#/components/parameters/orderingParam'
       responses:
@@ -51,6 +52,15 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Game'
+                  links:
+                    description: Enlaces de paginación
+                    readOnly: true
+                    type: object
+                    properties:
+                      prevPage:
+                        $ref: '#/components/schemas/Link'
+                      nextPage:
+                        $ref: '#/components/schemas/Link'
         '404':
           $ref: '#/components/responses/Response_404'
 
@@ -464,6 +474,15 @@ components:
         enum:
           - ASC
           - DESC
+    pageParam:
+      name: page
+      in: query
+      description: 'Número de página'
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: integer
+        minimum: 1
 
   examples:
     game-example:
