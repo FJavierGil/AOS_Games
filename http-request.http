@@ -14,6 +14,11 @@ GET http://127.0.0.1:80/api/v1/game/1234
 Accept: application/json
 
 ###
+# DELETE 204
+DELETE http://127.0.0.1:80/api/v1/game/1234
+Accept: application/json
+
+###
 # POST 201
 POST http://127.0.0.1:80/api/v1/game
 Content-Type: application/json
@@ -24,6 +29,16 @@ Content-Type: application/json
   "version": "4.5.6",
   "año_publicación": 2022
 }
+
+###
+# COPTIONS 204
+OPTIONS http://127.0.0.1:80/api/v1/game
+Content-Type: application/json
+
+###
+# OPTIONS 204
+OPTIONS http://127.0.0.1:80/api/v1/game/5
+Content-Type: application/json
 
 ###
 # POST 201 (dinámico)
@@ -39,7 +54,7 @@ Content-Type: application/json
 }
 
 ###
-# PUT 200 (dinámico) - Falta cabecera If-Match
+# PUT 422 (dinámico) - Falta cabecera If-Match
 PUT http://127.0.0.1:80/api/v1/game/1234
 Prefer: dynamic=true
 Content-Type: application/json
@@ -66,6 +81,11 @@ Prefer: code=404
 Accept: application/problem+json
 
 ###
+# DELETE 404
+DELETE http://127.0.0.1:80/api/v1/game/1234
+Prefer: code=404
+
+###
 # POST 422
 POST http://127.0.0.1:80/api/v1/game
 Prefer: code=422
@@ -77,16 +97,6 @@ Content-Type: application/json
   "version": "4.5.6",
   "año_publicación": 2022
 }
-
-###
-# COPTIONS 204
-OPTIONS http://127.0.0.1:80/api/v1/game
-Content-Type: application/json
-
-###
-# OPTIONS 204
-OPTIONS http://127.0.0.1:80/api/v1/game/5
-Content-Type: application/json
 
 ###
 # PUT 404 (dinámico) - Not Found
