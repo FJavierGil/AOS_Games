@@ -1,0 +1,70 @@
+# Game
+description: Información de un videojuego
+title: '🕹️ Game'
+type: object
+properties:
+  game:
+    type: object
+    required:
+      - nombre
+      - empresa
+      - version
+      - año_publicación
+    properties:
+      id:
+        type: integer
+        format: int32
+        description: Id videojuego
+        readOnly: true
+      nombre:
+        description: Nombre del videojuego
+        type: string
+      genero:
+        description: Género del videojuego
+        type: array
+        items:
+          type: string
+      multijugador:
+        description: Indica si es un juego multijugador
+        type: boolean
+      requisitos:
+        description: Requisitos técnicos
+        type: string
+      empresa:
+        description: Nombre de la empresa desarrolladora
+        type: string
+      version:
+        description: Número de versión
+        type: string
+      año_publicación:
+        description: Año de publicación
+        type: integer
+      pegi:
+        $ref: './Pegi.yaml'
+      links:
+        description: Enlaces de relación
+        readOnly: true
+        type: object
+        properties:
+          parent:
+            $ref: './Link.yaml'
+          self:
+            $ref: './Link.yaml'
+example:
+  game:
+    id: 2022
+    nombre: 'Need For Speed: Porsche 2000'
+    genero: [ Carreras ]
+    multijugador: true
+    requisitos: Windows7+
+    empresa: Electronic Arts
+    version: 2.0.1
+    año_publicación: 2000
+    pegi: PEGI-3
+    links:
+      parent:
+        href: https://example.com/api/v1/game
+        rel: listaVideojuegos
+      self:
+        href: https://example.com/api/v1/game/2022
+        rel: obtenerVideojuego modificarVideojuego eliminarVideojuego

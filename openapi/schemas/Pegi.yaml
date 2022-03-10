@@ -1,0 +1,12 @@
+# Pegi:
+description: >
+  Clasificación PEGI (PanEuropean Game Information)
+  [https://pegi.info/](https://pegi.info/)
+type: string
+nullable: true
+enum:
+  - PEGI-3
+  - PEGI-7
+  - PEGI-12
+  - PEGI-16
+  - PEGI-18

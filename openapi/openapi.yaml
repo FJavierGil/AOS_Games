@@ -196,114 +196,13 @@ paths:
 components:
   schemas:
     Game:
-      description: Información de un videojuego
-      title: '🕹️ Game'
-      type: object
-      properties:
-        game:
-          type: object
-          required:
-            - nombre
-            - empresa
-            - version
-            - año_publicación
-          properties:
-            id:
-              type: integer
-              format: int32
-              description: Id videojuego
-              readOnly: true
-            nombre:
-              description: Nombre del videojuego
-              type: string
-            genero:
-              description: Género del videojuego
-              type: array
-              items:
-                type: string
-            multijugador:
-              description: Indica si es un juego multijugador
-              type: boolean
-            requisitos:
-              description: Requisitos técnicos
-              type: string
-            empresa:
-              description: Nombre de la empresa desarrolladora
-              type: string
-            version:
-              description: Número de versión
-              type: string
-            año_publicación:
-              description: Año de publicación
-              type: integer
-            pegi:
-              $ref: '#/components/schemas/Pegi'
-            links:
-              description: Enlaces de relación
-              readOnly: true
-              type: object
-              properties:
-                parent:
-                  $ref: '#/components/schemas/Link'
-                self:
-                  $ref: '#/components/schemas/Link'
-
+      $ref: './schemas/Game.yaml'
     Pegi:
-      description: >
-        Clasificación PEGI (PanEuropean Game Information)
-        [https://pegi.info/](https://pegi.info/)
-      type: string
-      nullable: true
-      enum:
-        - PEGI-3
-        - PEGI-7
-        - PEGI-12
-        - PEGI-16
-        - PEGI-18
-
+      $ref: './schemas/Pegi.yaml'
     HTTP_Problem:
-      type: object
-      externalDocs:
-        url: https://tools.ietf.org/html/rfc7807
-      description: | 
-        Problem Details for HTTP APIs
-        [https://tools.ietf.org/html/rfc7807](https://tools.ietf.org/html/rfc7807)
-      properties:
-        type:
-          type: string
-          format: uri
-          description: A URI reference [RFC3986] that identifies the problem type
-        title:
-          type: string
-          description: short human-readable summary of the problem type
-        status:
-          type: number
-          description: HTTP status code
-        detail:
-          type: string
-          description: human-readable explanation specific to this occurrence of the problem
-        instance:
-          type: string
-          format: uri
-          description: "A URI reference that identifies the specific
-                occurrence of the problem.  It may or may not yield further
-                information if dereferenced"
-
+      $ref: './schemas/HTTP_Problem.yaml'
     Link:
-      description: Enlace de relación
-      title: '🔗 Link'
-      type: object
-      properties:
-        href:
-          description: URL del enlace
-          type: string
-          format: uri
-          x-faker: internet.url
-        rel:
-          description: "Relación del documento enlazado con el actual. Contiene una lista de tipos
-                de enlaces separados por espacio."
-          type: string
-          x-faker: lorem.words
+      $ref: './schemas/Link.yaml'
 
   requestBodies:
     gameRB:
